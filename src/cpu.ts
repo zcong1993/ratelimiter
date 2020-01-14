@@ -95,3 +95,32 @@ export class CpuStat {
     }
   }
 }
+
+export class Cpuproc {
+  private lastCpu: number = 0
+  private cpu: number = 0
+  private timer: NodeJS.Timeout
+  constructor(
+    private readonly cpuStat: CpuStat,
+    private readonly sampleInterval: number = 500,
+    private readonly decay: number = 0.95
+  ) {
+    this.timer = setInterval(() => this.ticker(), this.sampleInterval)
+  }
+
+  ticker() {
+    const curCpu = this.cpuStat.stat
+    this.cpu = this.lastCpu * this.decay + curCpu * (1 - this.decay)
+    this.lastCpu = curCpu
+  }
+
+  get stat() {
+    return this.cpu
+  }
+
+  destroy() {
+    if (this.timer) {
+      clearInterval(this.timer)
+    }
+  }
+}
