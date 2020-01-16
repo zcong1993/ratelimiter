@@ -114,7 +114,7 @@ export class Cpuproc {
     this.lastCpu = curCpu
   }
 
-  get stat() {
+  stat() {
     return this.cpu
   }
 

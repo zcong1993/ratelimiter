@@ -13,7 +13,7 @@ interface RollingCounterOpts {
   gcInterval?: number
 }
 
-const ONE_SECOND_NANO = 1000000000
+const ONE_SECOND_NANO = 1e9
 
 const nano = (): number => {
   const hr = process.hrtime()
