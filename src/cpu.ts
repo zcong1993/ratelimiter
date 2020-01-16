@@ -14,10 +14,12 @@ const calculateBusy = (t1: os.CpuInfo, t2: os.CpuInfo): number => {
   const [t2All, t2Busy] = getAllBusy(t2)
 
   if (t2Busy <= t1Busy) {
+    /* istanbul ignore next */
     return 0
   }
 
   if (t2All <= t1All) {
+    /* istanbul ignore next */
     return 100
   }
 
@@ -26,6 +28,7 @@ const calculateBusy = (t1: os.CpuInfo, t2: os.CpuInfo): number => {
 
 const calculateAllBusy = (t1: os.CpuInfo[], t2: os.CpuInfo[]): number[] => {
   if (t1.length !== t2.length) {
+    /* istanbul ignore next */
     throw new Error(`received two CPU counts: ${t1.length} != ${t2.length}`)
   }
 

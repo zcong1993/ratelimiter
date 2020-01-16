@@ -156,3 +156,18 @@ it('bbr should works well', async () => {
   console.log(`drop: ${drop}`)
   bbr.destroy()
 }, 20000)
+
+it('test default config', async () => {
+  const bbr = new Bbr()
+  const cb = bbr.allow()
+  cb({ success: true })
+  bbr.destroy()
+})
+
+it('test stat', async () => {
+  const bbr = new Bbr()
+  const cb = bbr.allow()
+  cb({ success: true })
+  expect(bbr.stat).toBeDefined()
+  bbr.destroy()
+})

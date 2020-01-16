@@ -166,6 +166,7 @@ export class Bbr {
     }
 
     if (rawMinRt <= 0) {
+      /* istanbul ignore next */
       rawMinRt = 1
     }
 
