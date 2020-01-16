@@ -119,6 +119,7 @@ export class Cpuproc {
   }
 
   destroy() {
+    this.cpuStat.destroy()
     if (this.timer) {
       clearInterval(this.timer)
     }

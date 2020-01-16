@@ -1,4 +1,4 @@
-import { RollingCounter, hrtime } from '@zcong/rolling-policy'
+import { RollingCounter, hrtime, sleepMs } from '@zcong/rolling-policy'
 import { Cpuproc, CpuStat } from './cpu'
 
 export class ErrorLimitExceed extends Error {}
@@ -39,10 +39,10 @@ export class Bbr {
   private rtStat: RollingCounter
   private inFlight: number = 0
   private winBucketPerSec: number
-  private prevDrop: number
-  private prevDropHit: boolean
-  private rawMaxPass: number
-  private rawMinRt: number
+  private prevDrop: number = 0
+  private prevDropHit: boolean = false
+  private rawMaxPass: number = 0
+  private rawMinRt: number = 0
 
   constructor(cfg?: Config) {
     if (!cfg) {
@@ -64,20 +64,25 @@ export class Bbr {
   }
 
   allow(): CallbackFunc {
-    if (this.shouldDrop()) {
+    const drop = this.shouldDrop()
+    if (drop) {
       throw new ErrorLimitExceed()
     }
 
     this.inFlight += 1
     const startTime = sinceHrtime(INIT_HRTIME)
     return (doneInfo: DoneInfo) => {
-      const rt = sinceHrtime(INIT_HRTIME) - startTime
+      const rt = (sinceHrtime(INIT_HRTIME) - startTime) / 1e6
       this.rtStat.add(rt)
       this.inFlight -= 1
       if (doneInfo.success) {
         this.passState.add(1)
       }
     }
+  }
+
+  destroy() {
+    this.cpu.destroy()
   }
 
   get stat() {
@@ -169,89 +174,3 @@ export class Bbr {
     return this.rawMinRt
   }
 }
-
-// const bbr = new Bbr({
-//   cpuThreshold: 80,
-//   window: 1000,
-//   winBucket: 10,
-// })
-
-// const run = async () => {
-//   let publicB = bbr as any
-//   const d = 100
-//   let j = 0
-//   for (let i = 0; i <= 10; i++) {
-//     j += i * 100
-//     publicB.passState.add(i * 100)
-//     await sleepMs(d)
-//   }
-
-//   console.log(publicB.maxPass(), j)
-// }
-
-// const run = async () => {
-//   const d = 100
-//   bbr.rtStat = new RollingCounter({ size: 10, bucketDuration: d})
-//   let jj = 0
-//   for (let i = 0; i < 10; i++) {
-//     for (let j = i*10 + 1; j <= i*10+10; j++) {
-//       jj += j
-//       bbr.rtStat.add(j)
-//     }
-//     if (i !== 9) {
-//       await sleepMs(d)
-//     }
-//   }
-
-//   console.log(bbr.stat, jj)
-// }
-
-// const run = async () => {
-//   const d = 100
-//   for (let i = 0; i < 10; i++) {
-//     bbr.passState.add((i + 2) * 100)
-//     for (let j = i*10 + 1; j <= i*10+10; j++) {
-//       bbr.rtStat.add(j)
-//     }
-//     if (i !== 9) {
-//       await sleepMs(d)
-//     }
-//   }
-
-//   console.log(bbr.maxFlight())
-// }
-
-// run()
-
-// setInterval(() => console.log('cpu: ', bbr.stat), 100)
-
-// const afterN = async (fn: Function, n: number) => {
-//   await sleepMs(n)
-//   return fn()
-// }
-
-// let i = 0
-// let drop = 0
-// const fns = () => Array(30000)
-//   .fill(null)
-//   .map((_, i) => {
-//     const rd = Math.floor(Math.random() * 1000)
-//     try {
-//       const cb = bbr.allow()
-//       return afterN(() => {
-//         cb({ success: true })
-//         // console.log(i, rd, bbr.stat)
-//       }, rd)
-//     } catch (err) {
-//       console.log(err)
-//       drop++
-//     }
-//     return () => {}
-//   })
-
-// sleepMs(5000)
-//   .then(() => Promise.all(fns()))
-//   .then(() => {
-//     console.log('done, drop: ', drop, bbr.iii)
-//     process.exit(0)
-//   })
