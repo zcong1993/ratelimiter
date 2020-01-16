@@ -1,4 +1,4 @@
-import { RollingCounter, hrtime, sleepMs } from '@zcong/rolling-policy'
+import { RollingCounter, hrtime } from '@zcong/rolling-policy'
 import { Cpuproc, CpuStat } from './cpu'
 
 export class ErrorLimitExceed extends Error {}
