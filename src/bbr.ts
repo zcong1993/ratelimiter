@@ -19,7 +19,7 @@ export interface Config {
 export const defaultConfig: Config = {
   window: 5000,
   winBucket: 50,
-  cpuThreshold: 80
+  cpuThreshold: 80,
 }
 
 const ONE_SECOND_NANO = 1e9
@@ -91,7 +91,7 @@ export class Bbr {
       inFlight: this.inFlight,
       minRt: this.minRt(),
       maxPass: this.maxPass(),
-      maxInFlight: this.maxFlight()
+      maxInFlight: this.maxFlight(),
     }
   }
 

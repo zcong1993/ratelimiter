@@ -50,8 +50,8 @@ const mergeAll = (t: os.CpuInfo[]): [os.CpuInfo] => {
       user: 0,
       sys: 0,
       irq: 0,
-      nice: 0
-    }
+      nice: 0,
+    },
   }
 
   for (const tt of t) {

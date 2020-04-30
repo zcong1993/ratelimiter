@@ -5,7 +5,7 @@ const createBbr = () => {
   const bbr = new Bbr({
     cpuThreshold: 80,
     window: 1000,
-    winBucket: 10
+    winBucket: 10,
   })
 
   return [bbr as any, () => bbr.destroy()]
@@ -15,7 +15,7 @@ const createBbrWithCpu = (cpu: any): any => {
   const bbr: any = new Bbr({
     cpuThreshold: 80,
     window: 1000,
-    winBucket: 10
+    winBucket: 10,
   })
   bbr.destroy()
   bbr.cpu = cpu
@@ -127,7 +127,7 @@ it('bbr should works well', async () => {
   const bbr = new Bbr({
     window: 5000,
     winBucket: 50,
-    cpuThreshold: 10
+    cpuThreshold: 10,
   })
 
   let drop = 0
