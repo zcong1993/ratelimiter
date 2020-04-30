@@ -53,6 +53,8 @@ export class Bbr {
 
     if (!this.config.cupProc) {
       this.cpu = new Cpuproc(new CpuStat())
+    } else {
+      this.cpu = this.config.cupProc
     }
 
     const size = this.config.winBucket
