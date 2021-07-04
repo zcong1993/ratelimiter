@@ -61,7 +61,7 @@
     }
   },
   "dependencies": {
-    "@zcong/rolling-policy": "^0.2.0",
+    "@zcong/rolling-policy": "^0.3.0",
     "debug": "^4.1.1"
   }
 }
