@@ -4,7 +4,7 @@ specifiers:
   '@types/debug': ^4.1.7
   '@types/jest': ^27.0.2
   '@types/node': ^16.9.6
-  '@zcong/js-release': ^0.1.0
+  '@zcong/js-release': ^0.2.0
   '@zcong/rolling-policy': 0.2.0
   debug: ^4.3.2
   husky: ^7.0.2
@@ -25,7 +25,7 @@ devDependencies:
   '@types/debug': 4.1.7
   '@types/jest': 27.0.2
   '@types/node': 16.9.6
-  '@zcong/js-release': 0.1.0
+  '@zcong/js-release': 0.2.0
   husky: 7.0.2
   jest: 27.2.1
   lint-staged: 11.1.2
@@ -737,16 +737,18 @@ packages:
       '@types/yargs-parser': 20.2.1
     dev: true
 
-  /@zcong/js-release/0.1.0:
-    resolution: {integrity: sha512-qQYTnnJ6byUQF8j9+9jgYyBuhYBYLBxHowINWlRs4v5gYpho9D0SA6wEJxYKvtHlwIp1tsFWuxDmZwzt476WRw==}
+  /@zcong/js-release/0.2.0:
+    resolution: {integrity: sha512-i023oWcbGi/sQUagn9NlwjiqGfntLHTstSysEXEI2wxQt/ULHp2RFH7A6+5ApOKAVxz5OfQT/s+5/LfTcdZc0A==}
     hasBin: true
     dependencies:
+      add-stream: 1.0.0
       chalk: 4.1.2
-      conventional-changelog-cli: 2.1.1
+      conventional-changelog: 3.1.24
       execa: 5.1.1
       minimist: 1.2.5
       prompts: 2.4.1
       semver: 7.3.5
+      tempfile: 3.0.0
     dev: true
 
   /@zcong/rolling-policy/0.2.0:
@@ -1167,18 +1169,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       q: 1.5.1
-    dev: true
-
-  /conventional-changelog-cli/2.1.1:
-    resolution: {integrity: sha512-xMGQdKJ+4XFDDgfX5aK7UNFduvJMbvF5BB+g0OdVhA3rYdYyhctrIE2Al+WYdZeKTdg9YzMWF2iFPT8MupIwng==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      add-stream: 1.0.0
-      conventional-changelog: 3.1.24
-      lodash: 4.17.21
-      meow: 8.1.2
-      tempfile: 3.0.0
     dev: true
 
   /conventional-changelog-codemirror/2.0.8:
