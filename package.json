@@ -42,7 +42,7 @@
     "*.{js,json,ts}": "prettier --write"
   },
   "dependencies": {
-    "@zcong/rolling-policy": "^0.3.0",
+    "@zcong/rolling-policy": "0.2.0",
     "debug": "^4.3.2"
   }
 }
