@@ -25,7 +25,7 @@
     "@types/debug": "^4.1.7",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.9.6",
-    "@zcong/js-release": "^0.2.0",
+    "@zcong/js-release": "^0.2.5",
     "husky": "^7.0.2",
     "jest": "^27.2.1",
     "lint-staged": "^11.1.2",
